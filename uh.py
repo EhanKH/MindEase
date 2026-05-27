@@ -2,39 +2,24 @@ import customtkinter as ctk
 import tkinter as tk
 import random
 import ctypes
-import threading # <-- Used for non-blocking requests
-import requests # <-- ADDED
-import json # <-- ADDED
-import time # <-- ADDED
+import threading
+import requests
+import json 
+import time 
 
-# ---------------------------------------------------------------------------
-# GEMINI API CONFIG
-# This app now uses your requests-based implementation.
-# ---------------------------------------------------------------------------
-
-# ---
-# PASTE YOUR GEMINI API KEY HERE
-# You can get a key from: https://aistudio.google.com/app/apikey
-# ---
 API_KEY = "AIzaSyBygJegt5uz6l7h4IxpstDNp6530wqUVxw" # <-- IMPORTANT: Replace this string with your actual key
 
-# ---
-# !! FIX 1: Corrected the model name
-# 'gemini-2.5-flash' is not a valid endpoint.
-# ---
+
 MODEL_NAME = 'gemini-2.5-flash-preview-09-2025'
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_NAME}:generateContent?key={API_KEY}"
 
-# --- Core API Functions ---
 
 def call_gemini_api(payload_contents: list, retries=3, delay=2) -> str:
     """
     Calls the Gemini API with a specific payload.
     This is based on your requests implementation.
     """
-    # ---
-    # !! FIX 2: Updated the API key check to match the new placeholder
-    # ---
+
     if not API_KEY or API_KEY == "YOUR_API_KEY_GOES_HERE":
         return "API Error: Please set your `API_KEY` at the top of the code."
         
@@ -86,21 +71,12 @@ def call_gemini_api(payload_contents: list, retries=3, delay=2) -> str:
 
     return "Sorry, I failed to get a response after several attempts."
 
-# --- End of API Functions ---
-
-
-# ---------------------------------------------------------------------------
-# DPI FIX (Windows)
-# ---------------------------------------------------------------------------
 try:
     ctypes.windll.shcore.SetProcessDpiAwareness(1)
 except Exception:
     pass
 
 
-# ---------------------------------------------------------------------------
-# THEME
-# ---------------------------------------------------------------------------
 class Theme:
     colors = {
         "bg-main": "#020617",  # slate-950
@@ -116,8 +92,7 @@ class Theme:
         "red": "#F87171",
         "yellow": "#FBBF24",
     }
-    
-    # Increased all font sizes
+
     fonts = {
         "sans_xl": ("Inter", 38, "bold"),  
         "sans_lg": ("Inter", 32, "bold"),  
@@ -127,10 +102,6 @@ class Theme:
         "chat_sm": ("Inter", 16, "normal"),  
     }
 
-
-# ---------------------------------------------------------------------------
-# GENERIC CARD
-# ---------------------------------------------------------------------------
 class Card(ctk.CTkFrame):
     def __init__(self, parent, **kwargs):
         super().__init__(
@@ -142,10 +113,6 @@ class Card(ctk.CTkFrame):
             **kwargs,
         )
 
-
-# ---------------------------------------------------------------------------
-# MAIN APP
-# ---------------------------------------------------------------------------
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -258,9 +225,6 @@ class App(ctk.CTk):
             self.screens["Helper"].ensure_intro()
 
 
-# ---------------------------------------------------------------------------
-# HOME SCREEN – REDESIGNED
-# ---------------------------------------------------------------------------
 class HomeScreen(ctk.CTkFrame):
     def __init__(self, parent, on_navigate):
         super().__init__(parent, fg_color=Theme.colors["bg-main"])
