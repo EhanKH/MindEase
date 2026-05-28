@@ -7,7 +7,7 @@ import requests
 import json 
 import time 
 
-API_KEY = "AIzaSyBygJegt5uz6l7h4IxpstDNp6530wqUVxw"
+API_KEY = "ENTER YOUR API KEY HERE"
 
 
 MODEL_NAME = 'gemini-2.5-flash-preview-09-2025'
